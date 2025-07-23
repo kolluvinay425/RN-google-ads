@@ -14,11 +14,9 @@ package io.invertase.googlemobileads
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
  */
 
 import android.view.View
-import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.uimanager.ThemedReactContext
@@ -29,17 +27,20 @@ import com.facebook.react.viewmanagers.RNGoogleMobileAdsNativeViewManagerDelegat
 import com.facebook.react.viewmanagers.RNGoogleMobileAdsNativeViewManagerInterface
 
 @ReactModule(name = ReactNativeGoogleMobileAdsNativeAdViewManager.NAME)
-class ReactNativeGoogleMobileAdsNativeAdViewManager(
-  reactContext: ReactApplicationContext
-) : ViewGroupManager<ReactNativeGoogleMobileAdsNativeAdView>(reactContext),
+class ReactNativeGoogleMobileAdsNativeAdViewManager :
+  ViewGroupManager<ReactNativeGoogleMobileAdsNativeAdView>(),
   RNGoogleMobileAdsNativeViewManagerInterface<ReactNativeGoogleMobileAdsNativeAdView> {
-  private val delegate: ViewManagerDelegate<ReactNativeGoogleMobileAdsNativeAdView> = RNGoogleMobileAdsNativeViewManagerDelegate(this)
+
+  private val delegate: ViewManagerDelegate<ReactNativeGoogleMobileAdsNativeAdView> =
+    RNGoogleMobileAdsNativeViewManagerDelegate(this)
 
   override fun getDelegate(): ViewManagerDelegate<ReactNativeGoogleMobileAdsNativeAdView> = delegate
 
   override fun getName(): String = NAME
 
-  override fun createViewInstance(context: ThemedReactContext): ReactNativeGoogleMobileAdsNativeAdView = ReactNativeGoogleMobileAdsNativeAdView(context)
+  override fun createViewInstance(context: ThemedReactContext): ReactNativeGoogleMobileAdsNativeAdView {
+    return ReactNativeGoogleMobileAdsNativeAdView(context)
+  }
 
   override fun onDropViewInstance(adView: ReactNativeGoogleMobileAdsNativeAdView) {
     super.onDropViewInstance(adView)
